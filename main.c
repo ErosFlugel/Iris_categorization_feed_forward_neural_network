@@ -21,21 +21,23 @@
  * FECHA: Julio 2026
  * =============================================================================
  */
-
+#include <windows.h>
 #include "network.h"
 
 /* =============================================================================
  * PRINT_BANNER - Muestra informacion del proyecto al iniciar
  * =============================================================================
  */
+
 static void print_banner(void) {
-    printf("================================================================\n");
-    printf("  MOTOR DE INFERENCIA - RED NEURONAL FEED-FORWARD\n");
-    printf("  Clasificador del Dataset Iris\n");
-    printf("  Autores: Luis Eulacio, Eros Flugel\n");
-    printf("  Arquitectura: %d - %d - %d (Entrada - Oculta - Salida)\n",
+    printf("\n╔══════════════════════════════════════════════════════════════╗\n");
+    printf("║       MOTOR DE INFERENCIA - RED NEURONAL FEED-FORWARD        ║\n");
+    printf("╠══════════════════════════════════════════════════════════════╣\n");
+    printf("║  Clasificador del Dataset Iris                               ║\n");
+    printf("║  Autores: Luis Eulacio, Eros Flugel                          ║\n");
+    printf("║  Arquitectura: %-2d - %-2d - %-2d (Entrada - Oculta - Salida)      ║\n",
            INPUT_SIZE, HIDDEN_SIZE, OUTPUT_SIZE);
-    printf("================================================================\n");
+    printf("╚══════════════════════════════════════════════════════════════╝\n");
 }
 
 /* =============================================================================
@@ -49,7 +51,7 @@ static void get_hyperparameters(double *lr, int *epochs) {
     printf("\n--- CONFIGURACION DE HIPERPARAMETROS ---\n\n");
 
     do {
-        printf("  Ingrese el Learning Rate (ej: 0.1, 0.5, 1.0): ");
+        printf("  Ingrese el Learning Rate (ej: 0.1, 0.5, 1.0, 2.3): ");
         if (scanf("%lf", lr) != 1 || *lr <= 0.0 || *lr > 10.0) {
             printf("  [!] Valor invalido. Use un numero positivo entre 0.01 y 10.0\n");
             while (getchar() != '\n'); /* Limpiar buffer */
@@ -78,6 +80,9 @@ static void get_hyperparameters(double *lr, int *epochs) {
  * =============================================================================
  */
 int main(void) {
+    // Set console output codepage to UTF-8
+    SetConsoleOutputCP(65001);
+
     double learning_rate;
     int epochs;
     double benchmark_ms;
@@ -179,9 +184,9 @@ int main(void) {
     printf("  Memoria liberada exitosamente.\n");
     printf("  Cero memory leaks.\n");
 
-    printf("\n========================================\n");
-    printf("  PROGRAMA FINALIZADO\n");
-    printf("========================================\n");
+    printf("\n╔════════════════════════════════════════════════╗\n");
+    printf("║               PROGRAMA FINALIZADO              ║\n");
+    printf("╚════════════════════════════════════════════════╝\n");
 
     return 0;
 }

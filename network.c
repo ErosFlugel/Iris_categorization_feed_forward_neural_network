@@ -54,29 +54,29 @@ double sigmoid_derivative(double x) {
 }
 
 /* =============================================================================
- * ALGORITMO DE STRASSEN PARA MULTIPLICACION DE MATRICES
+ * ALGORITMO DE STRASSEN PARA MULTIPLICACIÓN DE MATRICES
  * =============================================================================
  *
  * Complejidad teorica: O(n^2.807)
  * Comparacion con naive: O(n^3)
  *
  * El algoritmo reduce el numero de multiplicaciones de 8 a 7 dividiendo
- * la matriz en subbloques recursivamente. Para matrices pequenas (n < 64),
- * se usa naive como optimizacion practica ya que la overhead recursiva
+ * la matriz en subbloques recursivamente. Para matrices pequeñas (n < 64),
+ * se usa naive como optimización práäctica ya que la overhead recursiva
  * supera el beneficio.
  */
 
 /**
- * naive_multiply - Multiplicacion clasica de matrices (triple bucle).
+ * naive_multiply - Multiplicación clasica de matrices (triple bucle).
  * Complejidad: O(n^3)
  *
- * Se usa como fallback cuando n es pequena (n < 64) o no es potencia de 2.
+ * Se usa como fallback cuando n es pequeña (n < 64) o no es potencia de 2.
  */
 void naive_multiply(double *A, double *B, double *C, int n) {
     int i, j, k;
     for (i = 0; i < n; i++) {
         for (j = 0; j < n; j++) {
-            /* Aritmetica de punteros: *(C + i*n + j) equivale a C[i][j] */
+            /* Aritmética de punteros: *(C + i*n + j) equivale a C[i][j] */
             *(C + i * n + j) = 0.0;
             for (k = 0; k < n; k++) {
                 *(C + i * n + j) += *(A + i * n + k) * *(B + k * n + j);
@@ -112,7 +112,7 @@ static void strassen_sub(double *A, double *B, double *C, int n) {
 }
 
 /**
- * strassen_recursive - Implementacion recursiva del Algoritmo de Strassen.
+ * strassen_recursive - Implementación recursiva del Algorítmo de Strassen.
  *
  * Divide las matrices en 4 submatrices y calcula 7 productos intermedios:
  *   M1 = (A11 + A22)(B11 + B22)
@@ -126,7 +126,7 @@ static void strassen_sub(double *A, double *B, double *C, int n) {
  * Complejidad teorica: O(n^2.807) gracias a que reduce de 8 a 7 multiplicaciones.
  */
 static void strassen_recursive(double *A, double *B, double *C, int n) {
-    /* Caso base: usar naive para matrices pequenas */
+    /* Caso base: usar naive para matrices pequeñas */
     if (n <= 64) {
         naive_multiply(A, B, C, n);
         return;
@@ -692,12 +692,19 @@ void nn_train(FeedForwardNN *nn, Dataset *dataset) {
     int epoch, i, j;
     double total_loss;
 
-    printf("\n========================================\n");
-    printf("  INICIANDO ENTRENAMIENTO\n");
-    printf("  Learning Rate: %.4f\n", nn->learning_rate);
-    printf("  Epocas: %d\n", nn->epochs);
-    printf("  Muestras de entrenamiento: %d\n", dataset->num_train);
-    printf("========================================\n\n");
+    // printf("\n========================================\n");
+    // printf("  INICIANDO ENTRENAMIENTO\n");
+    // printf("  Learning Rate: %.4f\n", nn->learning_rate);
+    // printf("  Epocas: %d\n", nn->epochs);
+    // printf("  Muestras de entrenamiento: %d\n", dataset->num_train);
+    // printf("========================================\n\n");
+    printf("\n╔════════════════════════════════════════════════╗\n");
+    printf("║             INICIANDO ENTRENAMIENTO            ║\n");
+    printf("╠════════════════════════════════════════════════╣\n");
+    printf("║   Learning Rate: %-30.4f║\n", nn->learning_rate);
+    printf("║   Epocas: %-37d║\n", nn->epochs);
+    printf("║   Muestras de entrenamiento: %-18d║\n", dataset->num_train);
+    printf("╚════════════════════════════════════════════════╝\n\n");
 
     for (epoch = 0; epoch < nn->epochs; epoch++) {
         total_loss = 0.0;
@@ -1079,9 +1086,9 @@ void print_confusion_matrix(FeedForwardNN *nn, Dataset *dataset) {
     const char *class_names[] = {"Setosa", "Versicolor", "Virginica"};
 
     printf("\n  +---------------+----------+----------+----------+\n");
-    printf("  | Matriz de Confusion                        |\n");
+    printf("  |            Matriz de Confusion                 |\n");
     printf("  +---------------+----------+----------+----------+\n");
-    printf("  | Real \\ Pred   | Setosa   | Versicor | Virginic |\n");
+    printf("  |  Real \\ Pred  |  Setosa  | Versicor | Virginic |\n");
     printf("  +---------------+----------+----------+----------+\n");
 
     for (i = 0; i < OUTPUT_SIZE; i++) {
@@ -1107,10 +1114,11 @@ void print_confusion_matrix(FeedForwardNN *nn, Dataset *dataset) {
  * una matriz de confusion.
  */
 void print_evaluation_metrics(FeedForwardNN *nn, Dataset *dataset) {
-    printf("\n========================================\n");
-    printf("  EVALUACION DEL MODELO\n");
-    printf("  Muestras de prueba: %d\n", dataset->num_test);
-    printf("========================================\n");
+    printf("\n╔════════════════════════════════════════════════╗\n");
+printf("║              EVALUACION DEL MODELO             ║\n");
+printf("╠════════════════════════════════════════════════╣\n");
+printf("║   Muestras de prueba: %-25d║\n", dataset->num_test);
+printf("╚════════════════════════════════════════════════╝\n");
 
     /* Calcular precision global */
     double accuracy = nn_evaluate(nn, dataset->test_features,
