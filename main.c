@@ -21,7 +21,11 @@
  * FECHA: Julio 2026
  * =============================================================================
  */
+#ifdef _WIN32
 #include <windows.h>
+#endif
+
+#include "network.h"
 #include "network.h"
 
 /* =============================================================================
@@ -81,14 +85,16 @@ static void get_hyperparameters(double *lr, int *epochs) {
  */
 int main(void) {
     // Set console output codepage to UTF-8
-    SetConsoleOutputCP(65001);
+    #ifdef _WIN32
+        SetConsoleOutputCP(65001);
+    #endif
 
     double learning_rate;
     int epochs;
     double benchmark_ms;
 
     /* Semilla aleatoria para inicializar pesos */
-    srand((unsigned int)time(NULL));
+    srand((unsigned int) time(NULL));
 
     /* Mostrar banner informativo */
     print_banner();

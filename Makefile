@@ -56,9 +56,9 @@ run: $(TARGET)
 
 # Limpiar archivos generados
 clean:
-	-del /Q $(OBJS) $(TARGET).exe 2>nul || rm -f $(OBJS) $(TARGET)
+	rm -f $(OBJS) $(TARGET)
+	-del /Q $(OBJS) $(TARGET).exe 2>nul
 	@echo "Archivos limpiados."
-
 # =============================================================================
 # NOTAS:
 # - Se usa -O2 para optimizacion moderada (no afecta la logica)
